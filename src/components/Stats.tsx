@@ -1,12 +1,9 @@
-import { FC } from "react"
+import { FC, useContext } from "react"
+import { CurrentUserContext } from "../context/CurrentUserContext"
 
 interface StatProps {
   name: string,
-  value: number | string
-}
-
-interface StatsProps {
-  stats: StatProps[]
+  value: number | string | null
 }
 
 const Stat: FC<StatProps> = ({ name, value }) => {
@@ -19,7 +16,13 @@ const Stat: FC<StatProps> = ({ name, value }) => {
   )
 }
 
-const Stats: FC<StatsProps> = ({ stats }) => {
+const Stats = () => {
+  const { currentUser } = useContext(CurrentUserContext)
+  const stats = [
+    {name: "Followers", value: currentUser.followers},
+    {name: "Following", value: currentUser.following},
+    {name: "Location", value: currentUser.location}
+  ]
   return (
     <div className="flex flex-col gap-y-4 sm:flex-col xl:flex-row sm:gap-y-4 md:gap-x-4 mt-4">
       { stats.map((stat, key) => <Stat key={key} {...stat} />)}

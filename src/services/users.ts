@@ -1,12 +1,12 @@
 import { octokit } from ".";
-import { Users, UsersSearch } from "../types";
+import { User, UsersSearch } from "../types";
 
 export const getUser = async (username: string) => {
   const { data } = await octokit.rest.users.getByUsername({ username });
   return data
 };
 
-export const getMultipleUsers = async (users: UsersSearch): Promise<Users[]> => {
+export const getMultipleUsers = async (users: UsersSearch): Promise<User[]> => {
   const usernames = users.map((user) => user.login)
   const promises = Promise.all(usernames.map(async (username) => {
     const user = await getUser(username)
