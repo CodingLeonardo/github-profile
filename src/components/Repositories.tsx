@@ -14,12 +14,13 @@ interface RepositoryProps {
   license?: string,
   stars: number | undefined,
   forks: number | undefined,
-  updatedAt: string | null | undefined
+  updatedAt: string | null | undefined,
+  url: string
 }
 
-const Repository: FC<RepositoryProps> = ({ name, description, license, forks, stars, updatedAt }) => {
+const Repository: FC<RepositoryProps> = ({ name, description, license, forks, stars, updatedAt, url }) => {
   return (
-    <div className="bg-gradient-to-br from-gray-asphalt to-gray-anthracite p-5 rounded-xl">
+    <a href={url} target="about:blank" className="bg-gradient-to-br from-gray-asphalt to-gray-anthracite p-5 rounded-xl">
       <h3 className="text-gray-pearl text-xl">{name}</h3>
       <p className="text-gray-pearl text-base text-opacity-70 mt-2">{description}</p>
       <div className="flex items-center gap-x-5 mt-4">
@@ -39,7 +40,7 @@ const Repository: FC<RepositoryProps> = ({ name, description, license, forks, st
         </figure>
         <span className="text-gray-pearl text-opacity-70 text-xs">{updatedAt}</span>
       </div>
-    </div>
+    </a>
   )
 }
 
@@ -57,14 +58,15 @@ const Repositories = () => {
   return (
     <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-8 mt-8">
       {repositories.map((repository, key) => {
-        const { name, description, license, stargazers_count, forks, updated_at } = repository
+        const { name, description, license, stargazers_count, forks, updated_at, html_url } = repository
         const repositoryProps = {
           name,
           description,
           license: license?.spdx_id,
           stars: stargazers_count,
           forks,
-          updatedAt: getUpdatedDaysAgo(updated_at)
+          updatedAt: getUpdatedDaysAgo(updated_at),
+          url: html_url
         }
         return <Repository key={key} {...repositoryProps} />
       })}
