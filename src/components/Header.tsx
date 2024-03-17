@@ -7,9 +7,9 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ children }) => {
   return (
-    <header className="grid justify-items-center h-60 bg-blue-electric">
+    <header className="grid justify-items-center bg-blue-electric">
       {children}
-      <img src={Hero} alt="Hero" className="h-full object-cover" />
+      <img src={Hero} alt="Hero" className="h-60 w-full object-cover" />
     </header>
   )
 }

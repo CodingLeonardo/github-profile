@@ -22,7 +22,7 @@ const Repository: FC<RepositoryProps> = ({ name, description, license, forks, st
   return (
     <a href={url} target="about:blank" className="bg-gradient-to-br from-gray-asphalt to-gray-anthracite p-5 rounded-xl">
       <h3 className="text-gray-pearl text-xl">{name}</h3>
-      <p className="text-gray-pearl text-base text-opacity-70 mt-2">{description}</p>
+      <p className="text-gray-pearl text-sm text-opacity-70 mt-2">{description}</p>
       <div className="flex items-center gap-x-5 mt-4">
         {license && 
         <figure className="flex gap-x-1">
