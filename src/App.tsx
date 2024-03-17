@@ -35,13 +35,13 @@ function App() {
         <Search />
       </Header>
       <section className="bg-gray-slate">
-        <div className="flex flex-row gap-x-12 w-9/12 lg:w-10/12 m-auto">
+        <div className="flex flex-row gap-x-12 w-9/12 2xl:w-2/3 xl:w-9/12 lg:w-10/12 m-auto">
           <div className="bg-black w-32 h-32 relative -top-12 border-gray-slate border-solid border-8 rounded-2xl">
             <img className="rounded-lg" src={currentUser.avatar_url} alt={GitHub} />
           </div>
           <Stats />
         </div>
-        <div className="w-9/12 lg:w-10/12 m-auto lg:-mt-5 sm:mt-10 pb-24">
+        <div className="w-9/12 2xl:w-2/3 xl:w-9/12 lg:w-10/12 m-auto lg:-mt-5 sm:mt-10 pb-24">
           <div className="text-gray-pearl">
             <h1 className="text-4xl font-normal">{currentUser.name}</h1>
             <p className="text-gray-pearl text-opacity-60 mt-1">{currentUser.bio}</p>
