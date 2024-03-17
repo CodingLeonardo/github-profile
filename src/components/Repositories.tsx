@@ -1,20 +1,20 @@
-import { FC } from "react"
+import { FC, useContext, useEffect, useState } from "react"
+import { CurrentUserContext } from "../context/CurrentUserContext"
 
 import Nesting from "../assets/Nesting.svg"
 import Star from "../assets/Star.svg"
 import Chield from "../assets/Chield_alt.svg"
+import { getRepositories } from "../services/repositories"
+import { RepositoriesType } from "../types"
+import { getUpdatedDaysAgo } from "../utils/date"
 
 interface RepositoryProps {
   name: string,
-  description: string,
+  description: string | null,
   license?: string,
-  stars: number,
-  forks: number,
-  updatedAt: string
-}
-
-interface RepositoriesProps {
-  repositories: RepositoryProps[]
+  stars: number | undefined,
+  forks: number | undefined,
+  updatedAt: string | null | undefined
 }
 
 const Repository: FC<RepositoryProps> = ({ name, description, license, forks, stars, updatedAt }) => {
@@ -43,10 +43,31 @@ const Repository: FC<RepositoryProps> = ({ name, description, license, forks, st
   )
 }
 
-const Repositories: FC<RepositoriesProps> = ({ repositories }) => {
+const Repositories = () => {
+  const { currentUser } = useContext(CurrentUserContext)
+  const [repositories, setRepositories] = useState<RepositoriesType>([])
+
+  useEffect(() => {
+    if(!currentUser.login) return
+    getRepositories(currentUser.login).then((data) => {
+      setRepositories(data)
+    })
+  }, [currentUser])
+
   return (
     <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-8 mt-8">
-      {repositories.map((repository, key) => <Repository key={key} {...repository} />)}
+      {repositories.map((repository, key) => {
+        const { name, description, license, stargazers_count, forks, updated_at } = repository
+        const repositoryProps = {
+          name,
+          description,
+          license: license?.spdx_id,
+          stars: stargazers_count,
+          forks,
+          updatedAt: getUpdatedDaysAgo(updated_at)
+        }
+        return <Repository key={key} {...repositoryProps} />
+      })}
     </div>
   )
 }
