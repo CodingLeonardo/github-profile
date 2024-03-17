@@ -7,7 +7,7 @@ import Search from "./components/Search";
 import Stats from "./components/Stats"
 import Repositories from "./components/Repositories"
 
-import GitHub from "./assets/github-mark-white.svg"
+import GitHub from "../public/github-mark-white.svg"
 import { getUser } from "./services/users";
 
 
