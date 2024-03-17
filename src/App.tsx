@@ -48,7 +48,7 @@ function App() {
           </div>
           <Repositories />
           <div className="flex justify-center mt-12">
-            <a href="#" className="text-gray-pearl text-opacity-70">View all repositories</a>
+            <a href={`https://github.com/${currentUser.login}?tab=repositories`} target="about:blank" className="text-gray-pearl text-opacity-70">View all repositories</a>
           </div>
         </div>
       </section>
