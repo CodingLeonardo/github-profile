@@ -10,7 +10,6 @@ import Repositories from "./components/Repositories"
 import GitHub from "../public/github-mark-white.svg"
 import { getUser } from "./services/users";
 
-
 // const dataRepositories = [{name: ".github", description: "Community health files for the @Github organization", forks: 2369, stars: 703, updatedAt: "updated 4 days ago"},
 // {name: "accessibility-alt-text-bot", description: "An action to remind users to add alt text on Issues, Pull Request, and Discussions", license: "MIT", forks: 7, stars: 50, updatedAt: "updated 3 days ago"},
 // {name: "accessibilityjs", description: "Client side accessibility error scanner.", license: "MIT", forks: 72, stars:2181, updatedAt: "updated 4 days ago"},
@@ -23,11 +22,13 @@ function App() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const userGithub = await getUser("github")
-      setCurrentUser(userGithub)
+      if(Object.keys(currentUser).length === 0) {
+        const userGithub = await getUser("github")
+        setCurrentUser(userGithub)
+      }
     }
     fetchUser()
-  }, [])
+  }, [currentUser])
 
   return (
     <CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
