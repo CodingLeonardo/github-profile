@@ -36,15 +36,15 @@ function App() {
       </Header>
       <section className="bg-gray-slate">
         <div className="flex flex-row gap-x-12 w-9/12 m-auto">
-          <div className="bg-black w-fit h-fit relative -top-12 border-gray-slate border-solid border-8 rounded-2xl">
-            <img src={GitHub} alt="GitHub" />
+          <div className="bg-black w-32 h-32 relative -top-12 border-gray-slate border-solid border-8 rounded-2xl">
+            <img className="rounded-lg" src={currentUser.avatar_url} alt={GitHub} />
           </div>
           <Stats />
         </div>
         <div className="w-9/12 m-auto sm:mt-10 md:-mt-5 pb-24">
           <div className="text-gray-pearl">
-            <h1 className="text-4xl font-normal">Github</h1>
-            <p className="text-gray-pearl text-opacity-60 mt-1">How people build software.</p>
+            <h1 className="text-4xl font-normal">{currentUser.name}</h1>
+            <p className="text-gray-pearl text-opacity-60 mt-1">{currentUser.bio}</p>
           </div>
           <Repositories />
           <div className="flex justify-center mt-12">
