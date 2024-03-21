@@ -1,17 +1,14 @@
-import { FC, ReactNode } from "react";
-import Hero from "../assets/hero-image-github-profile.png"
+import { FC } from "react";
+import Search from "./Search";
+// import Hero from "../assets/hero-image-github-profile.png";
 
-interface HeaderProps {
-  children: ReactNode
-}
-
-const Header: FC<HeaderProps> = ({ children }) => {
+const Header: FC = () => {
   return (
-    <header className="grid justify-items-center bg-blue-electric">
-      {children}
-      <img src={Hero} alt="Hero" className="h-60 w-full object-cover" />
+    <header className="h-60 grid justify-items-center bg-hero bg-cover bg-center">
+      <Search />
+      {/* <img src={Hero} alt="Hero" className="h-60 w-full object-cover" /> */}
     </header>
-  )
-}
+  );
+};
 
 export default Header;

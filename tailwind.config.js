@@ -16,7 +16,11 @@ export default {
         navy: "#4A5567",
       },
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        hero: "url('/src/assets/hero-image-github-profile.png')",
+      },
+    },
   },
   plugins: [],
 };
