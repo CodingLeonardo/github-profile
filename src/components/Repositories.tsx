@@ -32,7 +32,7 @@ const Repository: FC<RepositoryProps> = ({
     <a
       href={url}
       target="about:blank"
-      className="bg-gradient-to-br from-gray-asphalt to-gray-anthracite p-5 rounded-xl"
+      className="bg-gradient-to-br from-gray-asphalt to-gray-anthracite p-5 rounded-xl h-fit"
     >
       <h3 className="text-gray-pearl text-xl">{name}</h3>
       <p className="text-gray-pearl text-sm text-opacity-70 mt-2">
