@@ -70,6 +70,7 @@ const Repository: FC<RepositoryProps> = ({
 const Repositories = () => {
   const { currentUser } = useContext(CurrentUserContext);
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState(null);
   const [repositories, setRepositories] = useState<RepositoriesType>([]);
 
