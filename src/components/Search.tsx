@@ -44,7 +44,6 @@ const SearchItem: FC<SearchItemProps> = ({ user }) => {
 
 const Search = () => {
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -72,11 +71,14 @@ const Search = () => {
         })
         .catch((err) => {
           setError(err);
+        })
+        .finally(() => {
+          console.error(error);
         });
     }, 1200);
 
     return () => clearTimeout(timer);
-  }, [query]);
+  }, [query, error]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
