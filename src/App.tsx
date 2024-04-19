@@ -26,7 +26,7 @@ function App() {
       <main className="min-h-screen bg-gray-slate">
         <Header />
         <div className="flex flex-row gap-x-12 w-9/12 2xl:w-2/3 xl:w-9/12 lg:w-10/12 m-auto">
-          <div className="bg-black w-32 h-32 relative -top-12 border-gray-slate border-solid border-8 rounded-2xl">
+          <div className="bg-black w-32 h-32 relative -top-12 border-gray-slate border-solid border-8 rounded-2xl overflow-hidden">
             <img
               className="rounded-l text-gray-pearl"
               src={currentUser.avatar_url}
