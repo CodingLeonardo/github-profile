@@ -70,7 +70,6 @@ const Repository: FC<RepositoryProps> = ({
 const Repositories = () => {
   const { currentUser } = useContext(CurrentUserContext);
   const [loading, setLoading] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState(null);
   const [repositories, setRepositories] = useState<RepositoriesType>([]);
 
@@ -83,11 +82,12 @@ const Repositories = () => {
       })
       .catch((err) => {
         setError(err);
+        console.error(error);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [currentUser]);
+  }, [currentUser, error]);
 
   return (
     <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-8 mt-8 h-full">
