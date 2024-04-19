@@ -6,11 +6,12 @@ import {
   FC,
   FocusEvent,
 } from "react";
+import Spinner from "./Spinner";
 import SearchIcon from "../assets/Search.svg";
 
 import { getMultipleUsers, searchUser } from "../services/users";
-import { User } from "../types";
 import { CurrentUserContext } from "../context/CurrentUserContext";
+import { User } from "../types";
 
 interface SearchItemProps {
   user: User;
@@ -42,6 +43,8 @@ const SearchItem: FC<SearchItemProps> = ({ user }) => {
 };
 
 const Search = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [usersFound, setUsersFound] = useState<User[]>([]);
@@ -52,9 +55,23 @@ const Search = () => {
         setUsersFound([]);
         return;
       }
-      const results = await searchUser(query);
-      const usersFoundDetails = await getMultipleUsers(results);
-      setUsersFound(usersFoundDetails);
+      setLoading(true);
+      searchUser(query)
+        .then((results) => {
+          getMultipleUsers(results)
+            .then((usersFoundDetails) => {
+              setUsersFound(usersFoundDetails);
+            })
+            .catch((err) => {
+              setError(err);
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        })
+        .catch((err) => {
+          setError(err);
+        });
     }, 1200);
 
     return () => clearTimeout(timer);
@@ -96,8 +113,12 @@ const Search = () => {
         />
       </div>
       <div tabIndex={0} className="grid gap-y-4 bg-white w-full mt-4 shadow-lg">
-        {isVisible &&
-          usersFound.map((user) => <SearchItem key={user.id} user={user} />)}
+        {loading ? (
+          <Spinner className="m-auto mt-4 col-span-2" />
+        ) : (
+          isVisible &&
+          usersFound.map((user) => <SearchItem key={user.id} user={user} />)
+        )}
       </div>
     </div>
   );

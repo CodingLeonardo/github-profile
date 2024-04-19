@@ -7,6 +7,7 @@ import Chield from "../assets/Chield_alt.svg";
 import { getRepositories } from "../services/repositories";
 import { RepositoriesType } from "../types";
 import { getUpdatedDaysAgo } from "../utils/date";
+import Spinner from "./Spinner";
 
 interface RepositoryProps {
   name: string;
@@ -68,38 +69,52 @@ const Repository: FC<RepositoryProps> = ({
 
 const Repositories = () => {
   const { currentUser } = useContext(CurrentUserContext);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [repositories, setRepositories] = useState<RepositoriesType>([]);
 
   useEffect(() => {
     if (!currentUser.login) return;
-    getRepositories(currentUser.login).then((data) => {
-      setRepositories(data);
-    });
+    setLoading(true);
+    getRepositories(currentUser.login)
+      .then((data) => {
+        setRepositories(data);
+      })
+      .catch((err) => {
+        setError(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, [currentUser]);
 
   return (
-    <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-8 mt-8">
-      {repositories.map((repository, key) => {
-        const {
-          name,
-          description,
-          license,
-          stargazers_count,
-          forks,
-          updated_at,
-          html_url,
-        } = repository;
-        const repositoryProps = {
-          name,
-          description,
-          license: license?.spdx_id,
-          stars: stargazers_count,
-          forks,
-          updatedAt: getUpdatedDaysAgo(updated_at),
-          url: html_url,
-        };
-        return <Repository key={key} {...repositoryProps} />;
-      })}
+    <div className="grid sm:grid-cols-1 lg:grid-cols-2 gap-y-8 gap-x-8 mt-8 h-full">
+      {loading ? (
+        <Spinner className="m-auto col-span-2" />
+      ) : (
+        repositories.map((repository, key) => {
+          const {
+            name,
+            description,
+            license,
+            stargazers_count,
+            forks,
+            updated_at,
+            html_url,
+          } = repository;
+          const repositoryProps = {
+            name,
+            description,
+            license: license?.spdx_id,
+            stars: stargazers_count,
+            forks,
+            updatedAt: getUpdatedDaysAgo(updated_at),
+            url: html_url,
+          };
+          return <Repository key={key} {...repositoryProps} />;
+        })
+      )}
     </div>
   );
 };
