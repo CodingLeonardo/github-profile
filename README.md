@@ -16,6 +16,8 @@ This is a solution to the [Github profile challenge on DevChallenges.io](devchal
 
 ## Overview
 
+Use Typescript, React, Vite, TailwindCSS as a technology stack. One of the main difficulties I encountered was how to make the search bar, since I had to make an HTTP request to the Github API (octokit) every time something was written in the input; The other difficulty I encountered was how to manage the state of the application, what best suited this situation was to use React's Context API.
+
 ### The challenge
 
 The challenge requires creating a Github Profile search application that utilizes multiple API endpoints. The Github Profile search app requires the use of multiple APIs, such as the Github REST API, which returns information about a repository as a JSON.
